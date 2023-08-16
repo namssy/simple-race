@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="setup">
+    <label for="numRunners">Number of Runners:</label>
+    <input type="number" id="numRunners" min="1" max="10">
+    <button onclick="createRunnersForm()">Set Runners</button>
+</div>
+<div id="runnerNamesForm"></div>
+<div class="track">
+</div>
+<button onclick="startRace()">Start Race!</button>
+<table id="resultTable">
+    <thead>
+    <tr>
+        <th>Position</th>
+        <th>Runner</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Results will populate here automatically -->
+    </tbody>
+</table>
+<script src="script.js"></script>
+</body>
+</html>

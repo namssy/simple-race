@@ -1,0 +1,89 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.track {
+    position: relative;
+    width: 600px;
+    height: 250px;
+    border: 3px solid #333;
+    background-color: green;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.lane {
+    flex: 1;
+    position: relative;
+    display: flex;
+    background-color: saddlebrown;
+    border: 1px white solid;
+    align-items: center;
+}
+
+.runner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 5px;
+    transition: left 0.1s linear;
+}
+
+.runnerName {
+    overflow: visible;
+    white-space: nowrap;
+    margin-top: -5px;
+    font-size: 12px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#resultTable {
+    margin-top: 20px;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+#resultTable th, #resultTable td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: center;
+}
+
+#resultTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#setup, #runnerNamesForm {
+    margin-bottom: 20px;
+}
+
+#runnerNamesForm label, #runnerNamesForm input {
+    margin-bottom: 12px;
+    display: block;
+}
+
