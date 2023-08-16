@@ -16,6 +16,8 @@ function createRunnersForm() {
               <input type="text" id="runnerImage${i + 1}" value="${runnersData[i].imageUrl || ''}">
           `;
     }
+    document.getElementById('runnerNamesForm').innerHTML = formHtml;
+    startSetup();
   } else {
     const num = document.getElementById('numRunners').value;
     for (let i = 1; i <= num; i++) {
@@ -26,10 +28,11 @@ function createRunnersForm() {
               <input type="text" id="runnerImage${i}">
           `;
     }
+    formHtml += '<button onclick="startSetup()">Start Setup</button>';
+    document.getElementById('runnerNamesForm').innerHTML = formHtml;
   }
 
-  formHtml += '<button onclick="startSetup()">Start Setup</button>';
-  document.getElementById('runnerNamesForm').innerHTML = formHtml;
+
 }
 // [{ "name": "Nara" }, { "name": "2" }]
 function startSetup() {
@@ -92,8 +95,14 @@ function startRace() {
 
       let randomDistance = Math.floor(Math.random() * 5) - 1;
 
-      if (currentPosition < maxPosition - 10) {
-        randomDistance += 2;
+      if (currentPosition < maxPosition - 200) {
+        randomDistance += 210;
+      }
+      if (currentPosition < maxPosition - 50) {
+        randomDistance += 1;
+      }
+      if (currentPosition < maxPosition - 20) {
+        randomDistance += 1;
       }
 
       runner.style.left = (currentPosition + randomDistance) + 'px';
