@@ -8,6 +8,11 @@
 </head>
 <body>
 <div id="setup">
+    <div>
+    <label for="runnersData">JSON Data:</label>
+    <textarea id="runnersData" placeholder='[ { "name": "Runner1", "imageUrl": "url1" }, ... ]'></textarea>
+    <button onclick="createRunnersForm()">Load Runners</button>
+    </div>
     <label for="numRunners">Number of Runners:</label>
     <input type="number" id="numRunners" min="1" max="10">
     <button onclick="createRunnersForm()">Set Runners</button>

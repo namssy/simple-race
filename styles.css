@@ -10,7 +10,7 @@ body {
 
 .track {
     position: relative;
-    width: 600px;
+    width: 820px;
     height: 250px;
     border: 3px solid #333;
     background-color: green;
@@ -31,18 +31,20 @@ body {
 
 .runner {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background-color: red;
     border-radius: 5px;
     transition: left 0.1s linear;
+    background-size: cover;
 }
 
 .runnerName {
     overflow: visible;
     white-space: nowrap;
-    margin-top: -5px;
+    margin-top: -14px;
     font-size: 12px;
+    color: white;
 }
 
 button {
@@ -80,6 +82,11 @@ button:hover {
 
 #setup, #runnerNamesForm {
     margin-bottom: 20px;
+}
+
+#setup textarea {
+    width: 100%;
+    display: block;
 }
 
 #runnerNamesForm label, #runnerNamesForm input {

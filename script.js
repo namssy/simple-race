@@ -1,22 +1,40 @@
 let colorPalette = ["red", "blue", "green", "orange", "purple", "yellow", "cyan", "pink", "lime", "brown"];
 
+
 function createRunnersForm() {
-  const num = document.getElementById('numRunners').value;
+  const runnersDataInput = document.getElementById('runnersData').value;
   let formHtml = '';
 
-  for (let i = 1; i <= num; i++) {
-    formHtml += `
-            <label for="runnerName${i}">Runner ${i} Name:</label>
-            <input type="text" id="runnerName${i}" required>
-        `;
+  if (runnersDataInput) {
+    const runnersData = JSON.parse(runnersDataInput);
+    document.getElementById('numRunners').setAttribute('value', runnersData.length)
+    for (let i = 0; i < runnersData.length; i++) {
+      formHtml += `
+              <label for="runnerName${i + 1}">Runner ${i + 1} Name:</label>
+              <input type="text" id="runnerName${i + 1}" value="${runnersData[i].name}" required>
+              <label for="runnerImage${i + 1}">Runner ${i + 1} Image URL:</label>
+              <input type="text" id="runnerImage${i + 1}" value="${runnersData[i].imageUrl || ''}">
+          `;
+    }
+  } else {
+    const num = document.getElementById('numRunners').value;
+    for (let i = 1; i <= num; i++) {
+      formHtml += `
+              <label for="runnerName${i}">Runner ${i} Name:</label>
+              <input type="text" id="runnerName${i}" required>
+              <label for="runnerImage${i}">Runner ${i} Image URL:</label>
+              <input type="text" id="runnerImage${i}">
+          `;
+    }
   }
+
   formHtml += '<button onclick="startSetup()">Start Setup</button>';
   document.getElementById('runnerNamesForm').innerHTML = formHtml;
 }
-
+// [{ "name": "Nara" }, { "name": "2" }]
 function startSetup() {
   const track = document.querySelector('.track');
-  track.innerHTML = ''; // Clear the existing lanes and runners
+  track.innerHTML = '';
 
   for (let i = 1; i <= document.getElementById('numRunners').value; i++) {
     const lane = document.createElement('div');
@@ -25,7 +43,13 @@ function startSetup() {
     const runner = document.createElement('div');
     runner.className = 'runner';
     runner.id = `runner${i}`;
-    runner.style.backgroundColor = colorPalette[i - 1]; // Assign color from palette
+
+    const imageUrl = document.getElementById(`runnerImage${i}`).value;
+    if (imageUrl) {
+      runner.style.backgroundImage = `url(${imageUrl})`;
+    } else {
+      runner.style.backgroundColor = colorPalette[i - 1];
+    }
 
     const runnerName = document.createElement('div');
     runnerName.className = 'runnerName';
@@ -36,8 +60,8 @@ function startSetup() {
     track.appendChild(lane);
   }
 
-  document.getElementById('setup').style.display = 'none'; // Hide setup form
-  document.getElementById('runnerNamesForm').style.display = 'none'; // Hide names form
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('runnerNamesForm').style.display = 'none';
 }
 
 let runners;
@@ -48,31 +72,42 @@ function startRace() {
   runners = document.querySelectorAll('.runner');
   results = [];
   raceInterval = setInterval(() => {
-    let finishedCount = 0; // 결승선에 도착한 참가자 수를 추적하기 위한 변수
+    let finishedCount = 0;
+    let maxPosition = 0;
+
+    for (let runner of runners) {
+      let currentPosition = parseInt(runner.style.left) || 0;
+      if (currentPosition > maxPosition) {
+        maxPosition = currentPosition;
+      }
+    }
+
     for (let runner of runners) {
       let currentPosition = parseInt(runner.style.left) || 0;
 
-      // 이미 결승선에 도착한 참가자는 움직이지 않게 함
-      if (currentPosition >= 580) {
+      if (currentPosition >= 800) {  // 경기장 거리를 800px로 조정
         finishedCount++;
-        continue;  // 이 참가자에 대한 나머지 로직을 건너뛰고 다음 참가자로 넘어감
+        continue;
       }
 
       let randomDistance = Math.floor(Math.random() * 5) - 1;
+
+      if (currentPosition < maxPosition - 10) {
+        randomDistance += 2;
+      }
+
       runner.style.left = (currentPosition + randomDistance) + 'px';
 
-      // 해당 참가자가 이미 결과에 포함되지 않고 결승선을 통과한 경우
-      if (currentPosition + randomDistance >= 580 && !results.includes(runner.id)) {
+      if (currentPosition + randomDistance >= 800 && !results.includes(runner.id)) {  // 경기장 거리를 800px로 조정
         results.push(runner.id);
         displayResults();
       }
     }
 
-    // 모든 참가자가 결승선을 통과하면 interval을 중지하고 결과 표시
     if (finishedCount === runners.length) {
       clearInterval(raceInterval);
     }
-  }, 33);
+  }, 16.5);
 }
 
 function displayResults() {
@@ -85,7 +120,7 @@ function displayResults() {
     let tdRunner = document.createElement('td');
 
     tdPosition.textContent = i + 1;
-    tdRunner.textContent = results[i];
+    tdRunner.textContent = document.getElementById(results[i]).textContent;
 
     tr.appendChild(tdPosition);
     tr.appendChild(tdRunner);
