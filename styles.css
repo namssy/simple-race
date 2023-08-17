@@ -11,7 +11,7 @@ body {
 .track {
     position: relative;
     width: 820px;
-    height: 250px;
+    min-height: 250px;
     border: 3px solid #333;
     background-color: green;
     border-radius: 15px;
@@ -23,6 +23,7 @@ body {
 .lane {
     flex: 1;
     position: relative;
+    flex-basis: 65px;
     display: flex;
     background-color: saddlebrown;
     border: 1px white solid;
