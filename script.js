@@ -1,11 +1,5 @@
 let colorPalette = ["red", "blue", "green", "orange", "purple", "yellow", "cyan", "pink", "lime", "brown"];
 
-// 테스트를 위한 호출 예시
-for (var seed = 0; seed < 30; seed++) {
-    var color = getRandomColor(seed);
-    console.log("Seed:", seed, "Color:", color);
-}
-
 function createRunnersForm() {
   const runnersDataInput = document.getElementById('runnersData').value;
   let formHtml = '';
