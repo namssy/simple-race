@@ -1,18 +1,9 @@
 let colorPalette = ["red", "blue", "green", "orange", "purple", "yellow", "cyan", "pink", "lime", "brown"];
 
-function getRandomColor(seed) {
-    // seed 값을 이용하여 난수 생성
-    var random = Math.abs(Math.sin(seed++) * 10000);
-    
-    // 랜덤한 RGB 값 생성
-    var red = Math.floor(random % 256);
-    var green = Math.floor((random / 256) % 256);
-    var blue = Math.floor((random / (256 * 256)) % 256);
-
-    // RGB 값을 이용하여 색상 문자열 생성
-    var color = 'rgb(' + red + ',' + green + ',' + blue + ')';
-
-    return color;
+// 테스트를 위한 호출 예시
+for (var seed = 0; seed < 30; seed++) {
+    var color = getRandomColor(seed);
+    console.log("Seed:", seed, "Color:", color);
 }
 
 function createRunnersForm() {
@@ -65,7 +56,7 @@ function startSetup() {
     if (imageUrl) {
       runner.style.backgroundImage = `url(${imageUrl})`;
     } else {
-      runner.style.backgroundColor = getRandomColor(i)
+      runner.style.backgroundColor = colorPalette[(i-1)%10];
     }
 
     const runnerName = document.createElement('div');
